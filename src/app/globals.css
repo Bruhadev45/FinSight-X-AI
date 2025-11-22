@@ -96,13 +96,15 @@
   }
   html {
     scroll-behavior: smooth;
-    font-size: 18px; /* Increased from default 16px */
+    font-size: 16px;
   }
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
-    font-size: 1rem; /* 18px base */
-    line-height: 1.7; /* Increased line height for better readability */
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   /* Headings use Poppins with larger sizes */
@@ -114,53 +116,53 @@
   }
 
   h1 {
-    font-size: 2.5rem; /* 45px */
+    font-size: 2.25rem;
   }
 
   h2 {
-    font-size: 2rem; /* 36px */
+    font-size: 1.875rem;
   }
 
   h3 {
-    font-size: 1.5rem; /* 27px */
+    font-size: 1.5rem;
   }
 
   h4 {
-    font-size: 1.25rem; /* 22.5px */
+    font-size: 1.25rem;
   }
 
   h5 {
-    font-size: 1.1rem; /* 19.8px */
+    font-size: 1.125rem;
   }
 
   h6 {
-    font-size: 1rem; /* 18px */
+    font-size: 1rem;
   }
 
   /* Paragraph text */
   p {
-    font-size: 1rem; /* 18px */
-    line-height: 1.7;
+    font-size: 1rem;
+    line-height: 1.6;
   }
 
   /* Small text */
   small, .text-sm {
-    font-size: 0.95rem; /* 17.1px */
+    font-size: 0.875rem;
   }
 
   /* Extra small text */
   .text-xs {
-    font-size: 0.85rem; /* 15.3px */
+    font-size: 0.75rem;
   }
 
   /* Large text */
   .text-lg {
-    font-size: 1.15rem; /* 20.7px */
+    font-size: 1.125rem;
   }
 
   /* Extra large text */
   .text-xl {
-    font-size: 1.35rem; /* 24.3px */
+    font-size: 1.25rem;
   }
 
   /* Display text uses Playfair */
