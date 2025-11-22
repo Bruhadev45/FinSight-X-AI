@@ -36,15 +36,15 @@ export function HeroSection({ scrollToSection }: { scrollToSection: (id: string)
 
                     <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-fade-in-up opacity-0 delay-300">
                         <Link href="/dashboard">
-                            <Button size="lg" className="text-lg px-8 py-6 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 hover-lift animate-glow">
+                            <Button size="lg" className="w-full sm:w-auto">
                                 Start Free Trial
-                                <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
                             </Button>
                         </Link>
                         <Button
                             size="lg"
                             variant="outline"
-                            className="text-lg px-8 py-6 hover-lift"
+                            className="w-full sm:w-auto"
                             onClick={() => scrollToSection("contact")}
                         >
                             Schedule Demo

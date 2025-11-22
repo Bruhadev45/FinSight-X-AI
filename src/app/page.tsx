@@ -27,24 +27,24 @@ export default function Home() {
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <LogoText />
-            <div className="hidden md:flex items-center gap-2 lg:gap-4">
-              <Button variant="ghost" onClick={() => scrollToSection("features")} className="text-sm lg:text-base">
+            <div className="hidden md:flex items-center gap-3">
+              <Button variant="ghost" size="sm" onClick={() => scrollToSection("features")}>
                 Features
               </Button>
-              <Button variant="ghost" onClick={() => scrollToSection("services")} className="text-sm lg:text-base">
+              <Button variant="ghost" size="sm" onClick={() => scrollToSection("services")}>
                 Services
               </Button>
-              <Button variant="ghost" onClick={() => scrollToSection("contact")} className="text-sm lg:text-base">
+              <Button variant="ghost" size="sm" onClick={() => scrollToSection("contact")}>
                 Contact
               </Button>
               <Link href="/dashboard">
-                <Button className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-sm lg:text-base">
+                <Button size="sm">
                   Dashboard
                 </Button>
               </Link>
             </div>
             <Link href="/dashboard" className="md:hidden">
-              <Button className="bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700">
+              <Button size="sm">
                 Dashboard
               </Button>
             </Link>
@@ -71,17 +71,17 @@ export default function Home() {
               Join thousands of companies using FinSight X AI to secure their financial operations
               and gain actionable insights from their documents.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Link href="/dashboard">
-                <Button size="lg" className="text-lg px-12 py-6 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700">
+                <Button size="lg" className="w-full sm:w-auto">
                   Start Free Trial
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight className="ml-2" />
                 </Button>
               </Link>
               <Button
                 size="lg"
                 variant="outline"
-                className="text-lg px-12 py-6"
+                className="w-full sm:w-auto"
                 onClick={() => scrollToSection("contact")}
               >
                 Talk to Sales
