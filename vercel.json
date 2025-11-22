@@ -1,13 +1,5 @@
 {
-  "buildCommand": "bun run build",
-  "devCommand": "bun run dev",
-  "installCommand": "bun install",
   "framework": "nextjs",
   "regions": ["iad1"],
-  "env": {
-    "DATABASE_URL": "@database_url",
-    "BETTER_AUTH_SECRET": "@better_auth_secret",
-    "PINECONE_API_KEY": "@pinecone_api_key",
-    "PINECONE_INDEX_NAME": "@pinecone_index_name"
-  }
+  "installCommand": "npm install --legacy-peer-deps"
 }
