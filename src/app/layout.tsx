@@ -50,7 +50,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="light">
       <body className={`antialiased ${inter.variable} ${poppins.variable} ${playfair.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
         <ErrorReporter />
         <CommandPalette />
