@@ -96,13 +96,13 @@
   }
   html {
     scroll-behavior: smooth;
-    font-size: 16px;
+    font-size: 14px;
   }
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
     font-size: 1rem;
-    line-height: 1.6;
+    line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -116,33 +116,33 @@
   }
 
   h1 {
-    font-size: 2.25rem;
+    font-size: 2rem;
   }
 
   h2 {
-    font-size: 1.875rem;
-  }
-
-  h3 {
     font-size: 1.5rem;
   }
 
-  h4 {
+  h3 {
     font-size: 1.25rem;
   }
 
-  h5 {
+  h4 {
     font-size: 1.125rem;
   }
 
-  h6 {
+  h5 {
     font-size: 1rem;
+  }
+
+  h6 {
+    font-size: 0.875rem;
   }
 
   /* Paragraph text */
   p {
     font-size: 1rem;
-    line-height: 1.6;
+    line-height: 1.5;
   }
 
   /* Small text */
@@ -157,12 +157,12 @@
 
   /* Large text */
   .text-lg {
-    font-size: 1.125rem;
+    font-size: 1rem;
   }
 
   /* Extra large text */
   .text-xl {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
   }
 
   /* Display text uses Playfair */
