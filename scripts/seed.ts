@@ -1165,6 +1165,156 @@ async function seed() {
     ]);
     console.log('✓ Created 3 benchmarks');
 
+    // 15. Create portfolios with real stock data
+    console.log('💼 Creating portfolios...');
+    const portfoliosData = await db.insert(schema.portfolios).values([
+      {
+        userId: 'user_1',
+        name: 'Tech Growth Portfolio',
+        description: 'High-growth technology stocks with real-time market data',
+        isDefault: true,
+        totalValue: 0,
+        totalCost: 0,
+        totalGainLoss: 0,
+        totalGainLossPercent: 0,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
+      {
+        userId: 'user_2',
+        name: 'Dividend Income',
+        description: 'Blue chip stocks focused on dividend income',
+        isDefault: true,
+        totalValue: 0,
+        totalCost: 0,
+        totalGainLoss: 0,
+        totalGainLossPercent: 0,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
+    ]).returning();
+    console.log(`✓ Created ${portfoliosData.length} portfolios`);
+
+    // 16. Create portfolio holdings with real ticker symbols
+    console.log('📈 Creating portfolio holdings...');
+    await db.insert(schema.portfolioHoldings).values([
+      // Tech Growth Portfolio
+      {
+        portfolioId: portfoliosData[0].id,
+        symbol: 'AAPL',
+        companyName: 'Apple Inc.',
+        shares: 100,
+        avgCostPerShare: 150.00,
+        totalCost: 15000,
+        currentPrice: 150.00, // Will be updated with real-time data
+        currentValue: 15000,
+        gainLoss: 0,
+        gainLossPercent: 0,
+        purchaseDate: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString(),
+        createdAt: new Date().toISOString(),
+      },
+      {
+        portfolioId: portfoliosData[0].id,
+        symbol: 'MSFT',
+        companyName: 'Microsoft Corporation',
+        shares: 75,
+        avgCostPerShare: 380.00,
+        totalCost: 28500,
+        currentPrice: 380.00,
+        currentValue: 28500,
+        gainLoss: 0,
+        gainLossPercent: 0,
+        purchaseDate: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString(),
+        createdAt: new Date().toISOString(),
+      },
+      {
+        portfolioId: portfoliosData[0].id,
+        symbol: 'NVDA',
+        companyName: 'NVIDIA Corporation',
+        shares: 50,
+        avgCostPerShare: 450.00,
+        totalCost: 22500,
+        currentPrice: 450.00,
+        currentValue: 22500,
+        gainLoss: 0,
+        gainLossPercent: 0,
+        purchaseDate: new Date(Date.now() - 120 * 24 * 60 * 60 * 1000).toISOString(),
+        createdAt: new Date().toISOString(),
+      },
+      {
+        portfolioId: portfoliosData[0].id,
+        symbol: 'GOOGL',
+        companyName: 'Alphabet Inc.',
+        shares: 200,
+        avgCostPerShare: 140.00,
+        totalCost: 28000,
+        currentPrice: 140.00,
+        currentValue: 28000,
+        gainLoss: 0,
+        gainLossPercent: 0,
+        purchaseDate: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000).toISOString(),
+        createdAt: new Date().toISOString(),
+      },
+      {
+        portfolioId: portfoliosData[0].id,
+        symbol: 'META',
+        companyName: 'Meta Platforms Inc.',
+        shares: 80,
+        avgCostPerShare: 350.00,
+        totalCost: 28000,
+        currentPrice: 350.00,
+        currentValue: 28000,
+        gainLoss: 0,
+        gainLossPercent: 0,
+        purchaseDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+        createdAt: new Date().toISOString(),
+      },
+      // Dividend Income Portfolio
+      {
+        portfolioId: portfoliosData[1].id,
+        symbol: 'JNJ',
+        companyName: 'Johnson & Johnson',
+        shares: 150,
+        avgCostPerShare: 160.00,
+        totalCost: 24000,
+        currentPrice: 160.00,
+        currentValue: 24000,
+        gainLoss: 0,
+        gainLossPercent: 0,
+        purchaseDate: new Date(Date.now() - 180 * 24 * 60 * 60 * 1000).toISOString(),
+        createdAt: new Date().toISOString(),
+      },
+      {
+        portfolioId: portfoliosData[1].id,
+        symbol: 'PG',
+        companyName: 'Procter & Gamble',
+        shares: 120,
+        avgCostPerShare: 145.00,
+        totalCost: 17400,
+        currentPrice: 145.00,
+        currentValue: 17400,
+        gainLoss: 0,
+        gainLossPercent: 0,
+        purchaseDate: new Date(Date.now() - 150 * 24 * 60 * 60 * 1000).toISOString(),
+        createdAt: new Date().toISOString(),
+      },
+      {
+        portfolioId: portfoliosData[1].id,
+        symbol: 'KO',
+        companyName: 'Coca-Cola Company',
+        shares: 300,
+        avgCostPerShare: 58.00,
+        totalCost: 17400,
+        currentPrice: 58.00,
+        currentValue: 17400,
+        gainLoss: 0,
+        gainLossPercent: 0,
+        purchaseDate: new Date(Date.now() - 200 * 24 * 60 * 60 * 1000).toISOString(),
+        createdAt: new Date().toISOString(),
+      },
+    ]);
+    console.log('✓ Created 8 portfolio holdings with real stock symbols');
+
     console.log('\n✅ Database seeding completed successfully!\n');
     console.log('📊 Summary:');
     console.log(`   • ${users.length} users created`);
