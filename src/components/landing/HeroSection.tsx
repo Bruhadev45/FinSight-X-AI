@@ -12,8 +12,8 @@ import {
 
 export function HeroSection({ scrollToSection }: { scrollToSection: (id: string) => void }) {
     return (
-        <section className="max-w-7xl mx-auto px-6 pt-20 pb-32">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 lg:pt-20 pb-20 sm:pb-24 lg:pb-32">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
                 {/* Left Side - Hero Content */}
                 <div>
                     <Badge className="mb-6 bg-gradient-to-r from-indigo-500 to-blue-500 text-white border-0 animate-fade-in-down opacity-0">
@@ -21,7 +21,7 @@ export function HeroSection({ scrollToSection }: { scrollToSection: (id: string)
                         Powered by Advanced AI Technology
                     </Badge>
 
-                    <h2 className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6 leading-tight font-playfair animate-fade-in-up opacity-0 delay-100">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-4 sm:mb-6 leading-tight font-playfair animate-fade-in-up opacity-0 delay-100">
                         AI-Powered
                         <br />
                         <span className="animated-gradient-text">
@@ -29,7 +29,7 @@ export function HeroSection({ scrollToSection }: { scrollToSection: (id: string)
                         </span>
                     </h2>
 
-                    <p className="text-xl text-slate-600 dark:text-slate-300 mb-8 leading-relaxed animate-fade-in-up opacity-0 delay-200">
+                    <p className="text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-300 mb-6 sm:mb-8 leading-relaxed animate-fade-in-up opacity-0 delay-200">
                         Enterprise-grade document analysis, fraud detection, and compliance monitoring.
                         Powered by 5 specialized AI agents working 24/7 to protect your financial operations.
                     </p>
