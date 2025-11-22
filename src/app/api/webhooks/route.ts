@@ -123,12 +123,11 @@ export async function POST(request: NextRequest) {
       .values({
         organizationId,
         url,
-        events: JSON.stringify(events),
+        events,
         secret,
-        description: description || null,
-        isActive: true,
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        enabled: true,
+        failureCount: 0,
+        metadata: description ? { description } : {},
       })
       .returning();
 

@@ -269,11 +269,11 @@ export default function DashboardPage() {
                   >
                     {item.icon && <item.icon className="h-4 w-4" />}
                     <span className="flex-1 text-left">{item.label}</span>
-                    {item.badge && (
+                    {('badge' in item && item.badge) ? (
                       <Badge variant="secondary" className="text-xs px-1.5 py-0 h-5 bg-gradient-to-r from-purple-500 to-pink-500 text-white border-none">
-                        {item.badge}
+                        {String(item.badge)}
                       </Badge>
-                    )}
+                    ) : null}
                   </Button>
                   {item.description && (
                     <div className="hidden group-hover:block absolute left-full ml-2 top-0 z-50 w-48 p-2 bg-slate-900 dark:bg-slate-800 text-white text-xs rounded-md shadow-lg">
