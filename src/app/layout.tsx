@@ -50,7 +50,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="light">
+    <html lang="en" className="light" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.classList.add('light');
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
       <body className={`antialiased ${inter.variable} ${poppins.variable} ${playfair.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
         <ErrorReporter />
         <CommandPalette />
