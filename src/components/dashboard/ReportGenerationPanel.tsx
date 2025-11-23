@@ -16,6 +16,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { OutputDisplay } from "@/components/ui/output-display";
 
 interface GeneratedReport {
   id: number;
@@ -48,74 +49,6 @@ export const ReportGenerationPanel = () => {
     { value: "tax_filing", label: "Tax Filing Report" },
     { value: "sec_filing", label: "SEC Filing (10-K/10-Q)" },
   ];
-
-  // Format content to remove LaTeX and JSON, show clean formatted text
-  const formatReportContent = (content: string): string => {
-    if (!content) return "";
-    
-    // Remove LaTeX delimiters
-    let formatted = content.replace(/\$\$[\s\S]*?\$\$/g, '[Mathematical Formula]');
-    formatted = formatted.replace(/\$[^$]+\$/g, '[Formula]');
-    
-    // Remove JSON blocks
-    formatted = formatted.replace(/```json[\s\S]*?```/g, '');
-    formatted = formatted.replace(/\{[\s\S]*?"[^"]*"[\s\S]*?\}/g, '');
-    
-    // Clean up extra whitespace
-    formatted = formatted.replace(/\n{3,}/g, '\n\n');
-    
-    return formatted.trim();
-  };
-
-  // Convert markdown to readable HTML-like structure
-  const renderFormattedContent = (content: string) => {
-    const formatted = formatReportContent(content);
-    const lines = formatted.split('\n');
-    
-    return lines.map((line, idx) => {
-      // Headers
-      if (line.startsWith('# ')) {
-        return <h1 key={idx} className="text-2xl font-bold mt-6 mb-3">{line.slice(2)}</h1>;
-      }
-      if (line.startsWith('## ')) {
-        return <h2 key={idx} className="text-xl font-bold mt-5 mb-2">{line.slice(3)}</h2>;
-      }
-      if (line.startsWith('### ')) {
-        return <h3 key={idx} className="text-lg font-semibold mt-4 mb-2">{line.slice(4)}</h3>;
-      }
-      
-      // Lists
-      if (line.startsWith('- ') || line.startsWith('* ')) {
-        return <li key={idx} className="ml-6 mb-1">{line.slice(2)}</li>;
-      }
-      if (line.match(/^\d+\. /)) {
-        return <li key={idx} className="ml-6 mb-1 list-decimal">{line.replace(/^\d+\. /, '')}</li>;
-      }
-      
-      // Bold text
-      if (line.includes('**')) {
-        const parts = line.split('**');
-        return (
-          <p key={idx} className="mb-2">
-            {parts.map((part, i) => i % 2 === 1 ? <strong key={i}>{part}</strong> : part)}
-          </p>
-        );
-      }
-      
-      // Horizontal rules
-      if (line === '---' || line === '___') {
-        return <hr key={idx} className="my-4 border-gray-300 dark:border-gray-700" />;
-      }
-      
-      // Empty lines
-      if (line.trim() === '') {
-        return <div key={idx} className="h-2" />;
-      }
-      
-      // Regular paragraphs
-      return <p key={idx} className="mb-2">{line}</p>;
-    });
-  };
 
   const generateReport = async () => {
     try {
@@ -360,10 +293,10 @@ export const ReportGenerationPanel = () => {
 
     try {
       setAskingAssistant(true);
-      
+
       // Simulate AI assistant response based on question
       await new Promise(resolve => setTimeout(resolve, 1500));
-      
+
       const responses: Record<string, string> = {
         "revenue": "According to the financial data, total revenue is $500M with a 12% year-over-year growth. The revenue is primarily driven by strong performance in the APAC region.",
         "compliance": "The company maintains full compliance with IFRS and GAAP standards. All audit checks have passed successfully with minor documentation updates required for SOX compliance.",
@@ -372,17 +305,17 @@ export const ReportGenerationPanel = () => {
         "signature": "Electronic signatures are legally binding. Simply click the 'E-Sign Document' button, enter your credentials, and the document will be cryptographically signed with a timestamp.",
         "default": "Based on the report data, I can help you understand financial metrics, compliance status, risk assessments, and report formatting. Please ask specific questions about revenue, expenses, risks, compliance, or report signing."
       };
-      
+
       const lowerQuestion = question.toLowerCase();
       let response = responses.default;
-      
+
       for (const [key, value] of Object.entries(responses)) {
         if (lowerQuestion.includes(key)) {
           response = value;
           break;
         }
       }
-      
+
       setAssistantResponse(response);
       toast.success("Assistant response generated!");
     } catch (error) {
@@ -390,23 +323,6 @@ export const ReportGenerationPanel = () => {
     } finally {
       setAskingAssistant(false);
     }
-  };
-
-  const downloadReport = () => {
-    if (!report) return;
-
-    const blob = new Blob([report.content], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    const signedSuffix = isSigned ? "_SIGNED" : "";
-    a.download = `${report.title.replace(/\s+/g, "_")}_${new Date().toISOString().split("T")[0]}${signedSuffix}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    
-    toast.success("Report downloaded successfully!");
   };
 
   return (
@@ -510,32 +426,36 @@ export const ReportGenerationPanel = () => {
                 </div>
               </div>
 
-              {/* Content Preview - Formatted without LaTeX/JSON */}
-              <div>
-                <h4 className="text-sm font-semibold mb-2">Content Preview:</h4>
-                <div className="p-4 bg-gray-50 dark:bg-slate-800 rounded max-h-[400px] overflow-y-auto text-sm leading-relaxed">
-                  {renderFormattedContent(report.content)}
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex gap-2">
-                <Button onClick={downloadReport} className="flex-1 gap-2" variant="default">
-                  <Download className="h-4 w-4" />
-                  Download Report
-                </Button>
-                
-                {!isSigned && (
-                  <Button 
-                    onClick={() => setESignDialogOpen(true)} 
-                    className="flex-1 gap-2"
-                    variant="outline"
-                  >
-                    <PenTool className="h-4 w-4" />
-                    E-Sign Document
-                  </Button>
-                )}
-              </div>
+              {/* Content Preview with OutputDisplay */}
+              <OutputDisplay
+                content={report.content}
+                type={
+                  reportType === "audit_summary" || reportType === "sec_filing"
+                    ? "success"
+                    : reportType === "compliance_report" || reportType === "tax_filing"
+                    ? "info"
+                    : "ai"
+                }
+                title={report.title}
+                subtitle={`Generated on ${new Date(report.generatedAt).toLocaleString()}`}
+                badge={isSigned ? "Digitally Signed" : undefined}
+                showCopy={true}
+                showDownload={true}
+                downloadFilename={`${report.title.replace(/\s+/g, "_")}_${new Date().toISOString().split("T")[0]}${isSigned ? "_SIGNED" : ""}.txt`}
+                actions={
+                  !isSigned && (
+                    <Button
+                      onClick={() => setESignDialogOpen(true)}
+                      variant="outline"
+                      size="sm"
+                      className="h-7 px-2"
+                    >
+                      <PenTool className="h-3.5 w-3.5 mr-1" />
+                      E-Sign
+                    </Button>
+                  )
+                }
+              />
 
               {/* Compliance Badge */}
               {(reportType === "audit_summary" || reportType === "compliance_report" || reportType === "sec_filing") && (

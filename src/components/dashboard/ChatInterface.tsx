@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { MessageSquare, Send, Bot, User, Loader2, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { renderSafe } from "@/lib/utils/renderSafe";
+import { OutputDisplay } from "@/components/ui/output-display";
 
 interface Message {
   id: string;
@@ -115,34 +116,6 @@ export const ChatInterface = ({ companyId, companyName }: ChatInterfaceProps) =>
     }
   };
 
-  const FormattedMessage = ({ content }: { content: string }) => {
-    return (
-      <div className="space-y-1">
-        {content.split('\n').map((line, i) => {
-          // Handle empty lines as spacers
-          if (!line.trim()) return <div key={i} className="h-2" />;
-
-          // Handle bullet points
-          const isBullet = line.trim().startsWith('•') || line.trim().startsWith('-');
-
-          // Parse bold text: **text**
-          const parts = line.split(/(\*\*.*?\*\*)/g);
-
-          return (
-            <p key={i} className={`min-h-[1.2em] ${isBullet ? 'pl-4' : ''}`}>
-              {parts.map((part, j) => {
-                if (part.startsWith('**') && part.endsWith('**')) {
-                  return <strong key={j}>{part.slice(2, -2)}</strong>;
-                }
-                return <span key={j}>{part}</span>;
-              })}
-            </p>
-          );
-        })}
-      </div>
-    );
-  };
-
   return (
     <Card className="border-purple-200 dark:border-purple-800 bg-gradient-to-br from-white to-purple-50 dark:from-slate-900 dark:to-purple-950 flex flex-col h-[600px]">
       <CardHeader className="flex-shrink-0">
@@ -187,39 +160,55 @@ export const ChatInterface = ({ companyId, companyName }: ChatInterfaceProps) =>
                 className={`flex-1 max-w-[80%] ${message.role === "user" ? "items-end" : "items-start"
                   } flex flex-col gap-2`}
               >
-                <div
-                  className={`rounded-lg p-3 ${message.role === "user"
-                      ? "bg-blue-600 text-white ml-auto"
-                      : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                    }`}
-                >
-                  <FormattedMessage content={message.content} />
-                </div>
+                {message.role === "user" ? (
+                  <>
+                    <div className="rounded-lg p-3 bg-blue-600 text-white ml-auto">
+                      <p className="whitespace-pre-wrap">{message.content}</p>
+                    </div>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                      {message.timestamp.toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <OutputDisplay
+                      content={message.content}
+                      type="ai"
+                      showCopy={false}
+                      showDownload={false}
+                      maxHeight="400px"
+                      className="w-full"
+                    />
 
-                {/* Suggestions */}
-                {message.suggestions && message.suggestions.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mt-1">
-                    {message.suggestions.map((suggestion, index) => (
-                      <Button
-                        key={index}
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleSendMessage(suggestion)}
-                        className="text-xs h-7 bg-white dark:bg-gray-800 hover:bg-purple-50 dark:hover:bg-purple-950"
-                        disabled={isLoading}
-                      >
-                        {suggestion}
-                      </Button>
-                    ))}
-                  </div>
+                    {/* Suggestions */}
+                    {message.suggestions && message.suggestions.length > 0 && (
+                      <div className="flex flex-wrap gap-2 mt-1">
+                        {message.suggestions.map((suggestion, index) => (
+                          <Button
+                            key={index}
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleSendMessage(suggestion)}
+                            className="text-xs h-7 bg-white dark:bg-gray-800 hover:bg-purple-50 dark:hover:bg-purple-950"
+                            disabled={isLoading}
+                          >
+                            {suggestion}
+                          </Button>
+                        ))}
+                      </div>
+                    )}
+
+                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                      {message.timestamp.toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </span>
+                  </>
                 )}
-
-                <span className="text-xs text-gray-500 dark:text-gray-400">
-                  {message.timestamp.toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                </span>
               </div>
             </div>
           ))}
