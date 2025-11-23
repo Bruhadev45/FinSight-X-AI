@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { BarChart3, TrendingUp, DollarSign, Search, Loader2, Building2 } from "lucide-react";
+import { BarChart3, TrendingUp, DollarSign, Search, Loader2, Building2, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 
 interface FinancialMetric {
@@ -28,24 +28,46 @@ export const FinancialDataPanel = () => {
   const [metrics, setMetrics] = useState<FinancialMetric[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const [refreshing, setRefreshing] = useState(false);
+  const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
 
   useEffect(() => {
     fetchFinancialData();
+
+    // Auto-refresh every 10 seconds for real-time updates
+    const interval = setInterval(() => {
+      fetchFinancialData(true);
+    }, 10000);
+
+    return () => clearInterval(interval);
   }, []);
 
-  const fetchFinancialData = async () => {
+  const fetchFinancialData = async (isAutoRefresh = false) => {
     try {
-      setLoading(true);
+      if (!isAutoRefresh) {
+        setLoading(true);
+      } else {
+        setRefreshing(true);
+      }
+
       const response = await fetch("/api/financial-metrics?limit=50");
       if (!response.ok) throw new Error("Failed to fetch financial data");
-      
+
       const data = await response.json();
       setMetrics(data);
+      setLastUpdate(new Date());
+
+      if (isAutoRefresh) {
+        toast.success("Financial data updated", { duration: 1000 });
+      }
     } catch (error) {
       console.error("Error fetching financial data:", error);
-      toast.error("Failed to load financial data");
+      if (!isAutoRefresh) {
+        toast.error("Failed to load financial data");
+      }
     } finally {
       setLoading(false);
+      setRefreshing(false);
     }
   };
 
@@ -77,11 +99,30 @@ export const FinancialDataPanel = () => {
     <div className="space-y-6">
       <Card className="border-indigo-200 dark:border-indigo-800 bg-gradient-to-br from-white to-indigo-50 dark:from-slate-900 dark:to-indigo-950">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <BarChart3 className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
-            Financial Data Files
-          </CardTitle>
-          <CardDescription>All extracted financial metrics and data</CardDescription>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="flex items-center gap-2">
+                <BarChart3 className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+                Financial Data Files
+                <Badge variant="outline" className="ml-2 gap-1">
+                  <div className={`w-2 h-2 rounded-full bg-green-500 ${refreshing ? 'animate-pulse' : ''}`} />
+                  Real-time
+                </Badge>
+              </CardTitle>
+              <CardDescription className="mt-2">
+                All extracted financial metrics and data • Last updated: {lastUpdate.toLocaleTimeString()}
+              </CardDescription>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => fetchFinancialData()}
+              disabled={refreshing}
+            >
+              <RefreshCw className={`h-4 w-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
+              {refreshing ? 'Updating...' : 'Refresh'}
+            </Button>
+          </div>
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Summary Stats */}

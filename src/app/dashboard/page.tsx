@@ -229,8 +229,8 @@ export default function DashboardPage() {
       <SettingsDialog open={settingsOpen} onOpenChange={setSettingsOpen} />
 
       <div className="flex">
-        {/* Sidebar */}
-        <aside className={`${sidebarOpen ? 'w-64' : 'w-0'} border-r bg-white dark:bg-slate-900 transition-all duration-300 overflow-hidden lg:w-64 h-[calc(100vh-4rem)] overflow-y-auto`}>
+        {/* Sidebar - Fixed Position */}
+        <aside className={`${sidebarOpen ? 'w-64' : 'w-0'} fixed left-0 top-[4rem] border-r bg-white dark:bg-slate-900 transition-all duration-300 overflow-hidden lg:w-64 h-[calc(100vh-4rem)] overflow-y-auto z-40`}>
           <nav className="space-y-1 p-4">
             {navigationItems.map((item, index) => {
               // Category headers
@@ -286,8 +286,8 @@ export default function DashboardPage() {
           </nav>
         </aside>
 
-        {/* Main Content */}
-        <main className="flex-1 p-6 space-y-6 h-[calc(100vh-4rem)] overflow-y-auto">
+        {/* Main Content - Add margin to account for fixed sidebar */}
+        <main className={`flex-1 p-6 space-y-6 h-[calc(100vh-4rem)] overflow-y-auto transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-0'}`}>
           {/* Dashboard Home - Feature Cards */}
           {activeSection === "home" && (
             <>

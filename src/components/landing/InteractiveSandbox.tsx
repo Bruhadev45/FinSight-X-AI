@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -17,10 +17,14 @@ import {
     Play
 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { useRouter } from "next/navigation";
 
 export const InteractiveSandbox = () => {
     const [step, setStep] = useState<"upload" | "analyzing" | "results">("upload");
     const [selectedDemo, setSelectedDemo] = useState<string | null>(null);
+    const [dragActive, setDragActive] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const router = useRouter();
 
     const demoFiles = [
         { id: "tesla", name: "Tesla Q3 2024 Report", type: "10-Q" },
@@ -35,6 +39,42 @@ export const InteractiveSandbox = () => {
         setTimeout(() => {
             setStep("results");
         }, 2500);
+    };
+
+    const handleDrag = (e: React.DragEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.type === "dragenter" || e.type === "dragover") {
+            setDragActive(true);
+        } else if (e.type === "dragleave") {
+            setDragActive(false);
+        }
+    };
+
+    const handleDrop = (e: React.DragEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setDragActive(false);
+
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            handleFileUpload(e.dataTransfer.files[0]);
+        }
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        if (e.target.files && e.target.files[0]) {
+            handleFileUpload(e.target.files[0]);
+        }
+    };
+
+    const handleFileUpload = (file: File) => {
+        // Redirect to dashboard documents page for actual upload
+        router.push('/dashboard/documents');
+    };
+
+    const handleButtonClick = () => {
+        fileInputRef.current?.click();
     };
 
     const mockData = [
@@ -81,14 +121,49 @@ export const InteractiveSandbox = () => {
                                             animate={{ opacity: 1, y: 0 }}
                                             exit={{ opacity: 0, y: -20 }}
                                             className="flex-1 flex flex-col items-center justify-center text-center"
+                                            onDragEnter={handleDrag}
+                                            onDragLeave={handleDrag}
+                                            onDragOver={handleDrag}
+                                            onDrop={handleDrop}
                                         >
-                                            <div className="w-20 h-20 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center mb-6">
+                                            <input
+                                                ref={fileInputRef}
+                                                type="file"
+                                                accept=".pdf,.xlsx,.csv"
+                                                onChange={handleFileChange}
+                                                className="hidden"
+                                            />
+                                            <div
+                                                className={`w-20 h-20 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center mb-6 transition-all cursor-pointer ${
+                                                    dragActive ? 'scale-110 bg-blue-100 dark:bg-blue-900/40' : ''
+                                                }`}
+                                                onClick={handleButtonClick}
+                                            >
                                                 <Upload className="h-10 w-10 text-blue-600" />
                                             </div>
                                             <h3 className="text-xl font-semibold mb-2">Upload Financial Document</h3>
-                                            <p className="text-sm text-slate-500 mb-8 max-w-xs">
-                                                Drag & drop PDF or select a sample report below
+                                            <p className="text-sm text-slate-500 mb-4 max-w-xs">
+                                                Drag & drop PDF or click to upload
                                             </p>
+                                            <Button
+                                                variant="outline"
+                                                size="sm"
+                                                className="mb-6"
+                                                onClick={handleButtonClick}
+                                            >
+                                                Choose File
+                                            </Button>
+
+                                            <div className="w-full max-w-xs mb-4">
+                                                <div className="relative">
+                                                    <div className="absolute inset-0 flex items-center">
+                                                        <div className="w-full border-t border-slate-200 dark:border-slate-800"></div>
+                                                    </div>
+                                                    <div className="relative flex justify-center text-xs">
+                                                        <span className="bg-white dark:bg-slate-900 px-2 text-slate-500">Or try a demo</span>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                             <div className="grid grid-cols-1 gap-3 w-full max-w-xs">
                                                 {demoFiles.map((file) => (
