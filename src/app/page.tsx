@@ -1,23 +1,29 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Logo, LogoText } from "@/components/Logo";
-import { Shield, Lock, ArrowRight, Sparkles } from "lucide-react";
+import { Shield, Lock, ArrowRight, Sparkles, Menu, X } from "lucide-react";
 import { HeroSection } from "@/components/landing/HeroSection";
 import { FeaturesSection } from "@/components/landing/FeaturesSection";
 import { ServicesSection } from "@/components/landing/ServicesSection";
 import { ContactSection } from "@/components/landing/ContactSection";
 import { InteractiveSandbox } from "@/components/landing/InteractiveSandbox";
+import { FAQSection } from "@/components/landing/FAQSection";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
 export default function Home() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -27,6 +33,8 @@ export default function Home() {
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <LogoText />
+
+            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-3">
               <Button variant="ghost" size="sm" onClick={() => scrollToSection("features")}>
                 Features
@@ -43,11 +51,38 @@ export default function Home() {
                 </Link>
               </Button>
             </div>
-            <Button size="sm" asChild className="md:hidden">
-              <Link href="/dashboard">
-                Dashboard
-              </Link>
-            </Button>
+
+            {/* Mobile Navigation */}
+            <div className="md:hidden flex items-center gap-2">
+              <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Menu className="h-5 w-5" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent>
+                  <SheetHeader>
+                    <SheetTitle>Menu</SheetTitle>
+                  </SheetHeader>
+                  <div className="flex flex-col gap-4 mt-8">
+                    <Button variant="ghost" className="justify-start" onClick={() => scrollToSection("features")}>
+                      Features
+                    </Button>
+                    <Button variant="ghost" className="justify-start" onClick={() => scrollToSection("services")}>
+                      Services
+                    </Button>
+                    <Button variant="ghost" className="justify-start" onClick={() => scrollToSection("contact")}>
+                      Contact
+                    </Button>
+                    <Button asChild>
+                      <Link href="/dashboard">
+                        Dashboard
+                      </Link>
+                    </Button>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
         </div>
       </nav>
@@ -58,6 +93,7 @@ export default function Home() {
       </div>
       <FeaturesSection />
       <ServicesSection />
+      <FAQSection />
       <ContactSection />
 
       {/* CTA Section */}

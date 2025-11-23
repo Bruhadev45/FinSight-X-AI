@@ -41,8 +41,46 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FinSight X - AI Financial Guardian",
-  description: "AI-Agent powered financial analysis system with fraud detection and real-time alerts",
+  title: "FinSight X - AI Financial Guardian | Enterprise Financial Intelligence",
+  description: "AI-powered financial analysis platform with fraud detection, real-time alerts, predictive analytics, and document intelligence. Trusted by enterprises worldwide for financial risk management.",
+  keywords: ["AI financial analysis", "fraud detection", "financial intelligence", "predictive analytics", "risk management", "document intelligence", "financial automation"],
+  authors: [{ name: "FinSight X Team" }],
+  openGraph: {
+    title: "FinSight X - AI Financial Guardian",
+    description: "Enterprise-grade AI-powered financial analysis with fraud detection and real-time alerts",
+    url: "https://fin-sight-x-ai.vercel.app",
+    siteName: "FinSight X AI",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "FinSight X AI - Financial Intelligence Platform",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FinSight X - AI Financial Guardian",
+    description: "Enterprise-grade AI-powered financial analysis with fraud detection and real-time alerts",
+    images: ["/og-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: "your-google-verification-code",
+  },
 };
 
 export default function RootLayout({

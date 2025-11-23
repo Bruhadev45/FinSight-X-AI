@@ -27,7 +27,6 @@ import { DocumentIntelligenceDashboard } from "@/components/dashboard/DocumentIn
 import { AdvancedSearch } from "@/components/dashboard/AdvancedSearch";
 import { DocumentComparison } from "@/components/dashboard/DocumentComparison";
 import { VisualKnowledgeGraph } from "@/components/dashboard/VisualKnowledgeGraph";
-import { AudioSummaryPlayer } from "@/components/dashboard/AudioSummaryPlayer";
 import { ScenarioSimulator } from "@/components/dashboard/ScenarioSimulator";
 import { AlertRulesPanel } from "@/components/dashboard/AlertRulesPanel";
 
@@ -82,14 +81,6 @@ export default function AdvancedFeaturesPage() {
       icon: Network,
       description: "Interactive entity relationship explorer",
       priority: "medium",
-      status: "new",
-    },
-    {
-      id: "audio",
-      name: "Audio Summaries",
-      icon: Headphones,
-      description: "Listen to AI-generated report summaries",
-      priority: "low",
       status: "new",
     },
     {
@@ -319,19 +310,6 @@ export default function AdvancedFeaturesPage() {
               </p>
             </div>
             <VisualKnowledgeGraph />
-          </TabsContent>
-
-          <TabsContent value="audio" className="space-y-4">
-            <div className="mb-4">
-              <h3 className="text-2xl font-bold mb-2">Audio Summaries (Podcast Mode)</h3>
-              <p className="text-muted-foreground">
-                Turn complex financial reports into concise audio summaries. Perfect for staying updated
-                while on the go.
-              </p>
-            </div>
-            <div className="max-w-2xl">
-              <AudioSummaryPlayer />
-            </div>
           </TabsContent>
 
           <TabsContent value="alerts" className="space-y-4">

@@ -6,6 +6,12 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+// Use GPT-4 for better accuracy in financial reports
+const REPORT_MODEL = "gpt-4" as const;
+const HIGH_ACCURACY_TEMP = 0.1; // Lower temperature for more deterministic, accurate outputs
+const MEDIUM_ACCURACY_TEMP = 0.2;
+const CREATIVE_TEMP = 0.3;
+
 export class ReportGeneratorService {
   async generateInvestorMemo(
     companyData: {
@@ -15,36 +21,57 @@ export class ReportGeneratorService {
       risks: string[];
     }
   ): Promise<string> {
-    const prompt = `Generate a professional investor memo for ${companyData.name}.
+    const systemPrompt = `You are a senior financial analyst at a major investment firm with 15+ years of experience.
+You create detailed, data-driven investor memos that institutional investors rely on for million-dollar decisions.
+Your analysis must be:
+- Precise and factual, citing specific numbers from the data
+- Professional in tone and formatting
+- Comprehensive yet concise
+- Include specific financial metrics, ratios, and trends
+- Provide clear investment thesis with supporting evidence
+- Highlight both opportunities and risks objectively`;
 
-Financial Data:
+    const userPrompt = `Create a professional investor memo for ${companyData.name}.
+
+FINANCIAL DATA AVAILABLE:
 ${JSON.stringify(companyData.financials, null, 2)}
 
-Analysis Results:
+ANALYSIS INSIGHTS:
 ${JSON.stringify(companyData.analysis, null, 2)}
 
-Key Risks:
-${companyData.risks.join("\n")}
+IDENTIFIED RISKS:
+${companyData.risks.map((r, i) => `${i + 1}. ${r}`).join("\n")}
 
-Create a comprehensive investor memo with:
-1. Executive Summary
+REQUIRED SECTIONS:
+1. Executive Summary (3-4 key takeaways with specific metrics)
 2. Financial Performance Analysis
-3. Key Metrics & Ratios
+   - Revenue trends and growth rates
+   - Profitability metrics (gross margin, EBITDA, net income)
+   - Key financial ratios (ROE, ROA, debt-to-equity, current ratio)
+   - Year-over-year and quarter-over-quarter comparisons
+3. Operational Highlights
+   - Market position and competitive advantages
+   - Business model strengths
 4. Risk Assessment
+   - Financial risks with quantified impact
+   - Operational and market risks
+   - Mitigation strategies
 5. Investment Recommendation
+   - Clear BUY/HOLD/SELL recommendation with rationale
+   - Target price or valuation range
+   - Key catalysts and timeline
 
-Format as professional business document.`;
+FORMAT: Professional markdown document with clear sections, bullet points for key metrics, and tables where appropriate.
+TONE: Objective, data-driven, suitable for institutional investors.`;
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: REPORT_MODEL,
       messages: [
-        {
-          role: "system",
-          content: "You are a financial analyst creating professional investor memos.",
-        },
-        { role: "user", content: prompt },
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userPrompt },
       ],
-      temperature: 0.3,
+      temperature: MEDIUM_ACCURACY_TEMP,
+      max_tokens: 2500,
     });
 
     return completion.choices[0].message.content || "";
@@ -54,34 +81,85 @@ Format as professional business document.`;
     complianceChecks: any[],
     fraudFindings: any[]
   ): Promise<string> {
-    const prompt = `Generate an audit summary report.
+    const systemPrompt = `You are a certified public accountant (CPA) and audit partner at a Big 4 accounting firm.
+You create government-compliant audit reports that meet SOC 2, ISO 27001, and regulatory standards.
+Your reports are used by:
+- Internal auditors and audit committees
+- External regulators (SEC, PCAOB, state boards)
+- Stakeholders and investors
 
-Compliance Checks:
+Requirements:
+- Follow professional auditing standards (GAAS, PCAOB)
+- Use precise accounting terminology
+- Cite specific finding numbers and evidence
+- Provide actionable recommendations
+- Rate findings by severity (Critical, High, Medium, Low)
+- Include management response requirements`;
+
+    const userPrompt = `Create a government-compliant audit summary report.
+
+COMPLIANCE CHECKS PERFORMED:
 ${JSON.stringify(complianceChecks, null, 2)}
 
-Fraud Detection Findings:
+FRAUD DETECTION FINDINGS:
 ${JSON.stringify(fraudFindings, null, 2)}
 
-Create a comprehensive audit summary with:
-1. Executive Summary
-2. Compliance Status
-3. Fraud Risk Assessment
-4. Key Findings & Issues
-5. Recommendations
-6. Required Actions
+REQUIRED REPORT STRUCTURE:
 
-Format as professional audit report.`;
+1. EXECUTIVE SUMMARY
+   - Overall opinion (Unqualified/Qualified/Adverse)
+   - Total findings by severity
+   - Critical issues requiring immediate action
+   - Audit scope and methodology
+
+2. SCOPE & OBJECTIVES
+   - Audit period and entities covered
+   - Standards and frameworks applied (SOC 2, GAAP, IFRS)
+   - Testing methodology
+
+3. COMPLIANCE STATUS
+   - Regulatory compliance assessment (IFRS, GAAP, SOX, SEBI)
+   - Policy adherence analysis
+   - Control effectiveness evaluation
+   - Specific regulation citations
+
+4. FRAUD RISK ASSESSMENT
+   - Fraud triangle analysis (Opportunity, Pressure, Rationalization)
+   - Red flags identified with evidence
+   - Fraud risk rating by area
+   - Comparison to industry benchmarks
+
+5. DETAILED FINDINGS
+   For each finding, include:
+   - Finding number and title
+   - Severity level (Critical/High/Medium/Low)
+   - Root cause analysis
+   - Business impact (financial, operational, reputational)
+   - Evidence and specific examples
+   - Regulatory implications
+
+6. RECOMMENDATIONS
+   - Specific corrective actions with priorities
+   - Implementation timelines (30/60/90 days)
+   - Resource requirements
+   - Success criteria and KPIs
+
+7. MANAGEMENT ACTION PLAN
+   - Required management responses
+   - Follow-up audit schedule
+   - Monitoring and reporting requirements
+
+FORMAT: Professional audit report format with numbered findings, tables for summary data, and clear section headings.
+COMPLIANCE: Must meet government audit standards and be suitable for regulatory submission.`;
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: REPORT_MODEL,
       messages: [
-        {
-          role: "system",
-          content: "You are an audit professional creating formal audit reports.",
-        },
-        { role: "user", content: prompt },
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userPrompt },
       ],
-      temperature: 0.2,
+      temperature: HIGH_ACCURACY_TEMP,
+      max_tokens: 3000,
     });
 
     return completion.choices[0].message.content || "";
@@ -247,34 +325,122 @@ Format as professional tax filing document compliant with IRS/government standar
     filingType: string,
     fiscalPeriod: string
   ): Promise<string> {
-    const prompt = `Generate a ${filingType} SEC filing for fiscal period ${fiscalPeriod}.
+    const systemPrompt = `You are a securities attorney and CFO with SEC filing expertise.
+You create regulatory filings that comply with:
+- Securities Act of 1933
+- Securities Exchange Act of 1934
+- Regulation S-K and S-X
+- EDGAR filing requirements
+- Sarbanes-Oxley Act (SOX)
 
-Company Data:
+Your filings are used by:
+- SEC examiners and enforcement
+- Public investors making investment decisions
+- Financial analysts and rating agencies
+- Legal counsel in due diligence
+
+Requirements:
+- Follow SEC format exactly (Item numbers, required disclosures)
+- Include all required certifications
+- Use appropriate legal language
+- Cite specific accounting standards (GAAP)
+- Include forward-looking statements safe harbor
+- Provide risk factors in order of significance`;
+
+    const userPrompt = `Create a ${filingType} SEC regulatory filing for fiscal period ${fiscalPeriod}.
+
+COMPANY INFORMATION:
 ${JSON.stringify(companyData, null, 2)}
 
-Create comprehensive SEC filing with:
-1. Cover Page and Filing Information
-2. Business Overview and Operations
-3. Risk Factors and Forward-Looking Statements
-4. Financial Data and Analysis (MD&A)
-5. Financial Statements (Balance Sheet, Income Statement, Cash Flow)
-6. Notes to Financial Statements
-7. Management Certifications
-8. Exhibits and Supplemental Information
+REQUIRED ${filingType} STRUCTURE:
 
-Format as professional SEC filing document compliant with SEC regulations and EDGAR filing standards.`;
+PART I - BUSINESS AND FINANCIAL INFORMATION
+
+Item 1. Business
+- Company overview and history
+- Business segments and products/services
+- Markets and competitive position
+- Employees and human capital
+- Government regulation
+
+Item 1A. Risk Factors
+- Market and economic risks
+- Operational risks
+- Financial and credit risks
+- Legal and regulatory risks
+- Technology and cybersecurity risks
+- Forward-looking statements disclaimer
+
+Item 2. Properties
+- Principal facilities and locations
+- Owned vs. leased properties
+
+Item 3. Legal Proceedings
+- Material litigation and regulatory matters
+
+Item 4. Mine Safety Disclosures (if applicable)
+
+PART II - FINANCIAL INFORMATION
+
+Item 5. Market for Common Equity
+- Stock price history and trading information
+- Dividend policy
+- Stock performance graph
+
+Item 6. Selected Financial Data
+- 5-year financial data table
+- Key performance indicators
+
+Item 7. Management's Discussion and Analysis (MD&A)
+- Executive Overview
+- Critical Accounting Policies
+- Results of Operations (by segment)
+- Liquidity and Capital Resources
+- Off-Balance Sheet Arrangements
+- Contractual Obligations
+- Known trends and uncertainties
+
+Item 8. Financial Statements and Supplementary Data
+- Consolidated Balance Sheets
+- Consolidated Statements of Income
+- Consolidated Statements of Cash Flows
+- Consolidated Statements of Shareholders' Equity
+- Notes to Financial Statements
+
+Item 9. Changes in and Disagreements with Accountants
+
+Item 9A. Controls and Procedures
+- Management's Report on Internal Control
+- Changes in Internal Control over Financial Reporting
+
+PART III - DIRECTORS, EXECUTIVE OFFICERS AND CORPORATE GOVERNANCE
+
+Item 10. Directors, Executive Officers and Corporate Governance
+Item 11. Executive Compensation
+Item 12. Security Ownership
+Item 13. Certain Relationships and Related Transactions
+Item 14. Principal Accounting Fees and Services
+
+PART IV - EXHIBITS AND FINANCIAL STATEMENT SCHEDULES
+
+Item 15. Exhibits, Financial Statement Schedules
+- List of required exhibits
+- Certifications under SOX Section 302 and 906
+
+SIGNATURES
+- Required signatures from CEO, CFO, and directors
+
+FORMAT: Official SEC filing format with proper item numbering, tables, and regulatory language.
+COMPLIANCE: Must be EDGAR-compatible and meet all SEC disclosure requirements for ${filingType} filing.`;
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: REPORT_MODEL,
       messages: [
-        {
-          role: "system",
-          content:
-            "You are a securities attorney and financial expert creating SEC regulatory filings.",
-        },
-        { role: "user", content: prompt },
+        { role: "system", content: systemPrompt },
+        { role: "user", content: userPrompt },
       ],
-      temperature: 0.15,
+      temperature: HIGH_ACCURACY_TEMP,
+      max_tokens: 4000,
     });
 
     return completion.choices[0].message.content || "";
