@@ -124,27 +124,55 @@ export function FeaturesSection() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                 {[...documentIntelligenceFeatures, ...securityComplianceFeatures.slice(0, 2)].map((feature, index) => {
                     const Icon = feature.icon;
-                    const colorClasses = {
-                        blue: "from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border-blue-200 dark:border-blue-800",
-                        red: "from-red-50 to-rose-50 dark:from-red-950/50 dark:to-rose-950/50 border-red-200 dark:border-red-800",
-                        green: "from-green-50 to-emerald-50 dark:from-green-950/50 dark:to-emerald-950/50 border-green-200 dark:border-green-800",
-                        amber: "from-amber-50 to-orange-50 dark:from-amber-950/50 dark:to-orange-950/50 border-amber-200 dark:border-amber-800",
-                        orange: "from-orange-50 to-red-50 dark:from-orange-950/50 dark:to-red-950/50 border-orange-200 dark:border-orange-800",
-                        purple: "from-purple-50 to-pink-50 dark:from-purple-950/50 dark:to-pink-950/50 border-purple-200 dark:border-purple-800",
-                        indigo: "from-indigo-50 to-blue-50 dark:from-indigo-950/50 dark:to-blue-950/50 border-indigo-200 dark:border-indigo-800",
+                    const colorMap: Record<string, { card: string; iconBg: string; iconText: string }> = {
+                        blue: {
+                            card: "from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 border-blue-200 dark:border-blue-800",
+                            iconBg: "bg-blue-100 dark:bg-blue-900/50",
+                            iconText: "text-blue-600 dark:text-blue-400"
+                        },
+                        red: {
+                            card: "from-red-50 to-rose-50 dark:from-red-950/50 dark:to-rose-950/50 border-red-200 dark:border-red-800",
+                            iconBg: "bg-red-100 dark:bg-red-900/50",
+                            iconText: "text-red-600 dark:text-red-400"
+                        },
+                        green: {
+                            card: "from-green-50 to-emerald-50 dark:from-green-950/50 dark:to-emerald-950/50 border-green-200 dark:border-green-800",
+                            iconBg: "bg-green-100 dark:bg-green-900/50",
+                            iconText: "text-green-600 dark:text-green-400"
+                        },
+                        amber: {
+                            card: "from-amber-50 to-orange-50 dark:from-amber-950/50 dark:to-orange-950/50 border-amber-200 dark:border-amber-800",
+                            iconBg: "bg-amber-100 dark:bg-amber-900/50",
+                            iconText: "text-amber-600 dark:text-amber-400"
+                        },
+                        orange: {
+                            card: "from-orange-50 to-red-50 dark:from-orange-950/50 dark:to-red-950/50 border-orange-200 dark:border-orange-800",
+                            iconBg: "bg-orange-100 dark:bg-orange-900/50",
+                            iconText: "text-orange-600 dark:text-orange-400"
+                        },
+                        purple: {
+                            card: "from-purple-50 to-pink-50 dark:from-purple-950/50 dark:to-pink-950/50 border-purple-200 dark:border-purple-800",
+                            iconBg: "bg-purple-100 dark:bg-purple-900/50",
+                            iconText: "text-purple-600 dark:text-purple-400"
+                        },
+                        indigo: {
+                            card: "from-indigo-50 to-blue-50 dark:from-indigo-950/50 dark:to-blue-950/50 border-indigo-200 dark:border-indigo-800",
+                            iconBg: "bg-indigo-100 dark:bg-indigo-900/50",
+                            iconText: "text-indigo-600 dark:text-indigo-400"
+                        },
                     };
+
+                    const colors = colorMap[feature.color as string] || colorMap.blue;
 
                     return (
                         <Card
                             key={index}
-                            // @ts-ignore - Dynamic color classes
-                            className={`bg-gradient-to-br ${colorClasses[feature.color as keyof typeof colorClasses]} hover-lift animate-scale-in opacity-0 delay-${Math.min((index + 1) * 100, 800)}`}
+                            className={`bg-gradient-to-br ${colors.card} hover-lift animate-scale-in opacity-0 delay-${Math.min((index + 1) * 100, 800)}`}
                         >
                             <CardContent className="pt-6">
                                 <div className="flex items-start gap-4">
-                                    <div className={`w-12 h-12 rounded-lg bg-${feature.color}-100 dark:bg-${feature.color}-900/50 flex items-center justify-center flex-shrink-0`}>
-                                        {/* @ts-ignore - Dynamic color classes */}
-                                        <Icon className={`h-6 w-6 text-${feature.color}-600 dark:text-${feature.color}-400`} />
+                                    <div className={`w-12 h-12 rounded-lg ${colors.iconBg} flex items-center justify-center flex-shrink-0`}>
+                                        <Icon className={`h-6 w-6 ${colors.iconText}`} />
                                     </div>
                                     <div>
                                         {feature.category && (
@@ -201,11 +229,11 @@ export function FeaturesSection() {
                                                 {feature.description}
                                             </p>
                                         </div>
-                                        <Link href="/dashboard/advanced-features">
-                                            <Button variant="ghost" size="sm">
+                                        <Button variant="ghost" size="sm" asChild>
+                                            <Link href="/dashboard/advanced-features">
                                                 <ArrowRight className="h-4 w-4" />
-                                            </Button>
-                                        </Link>
+                                            </Link>
+                                        </Button>
                                     </div>
                                 </CardContent>
                             </Card>
@@ -214,12 +242,12 @@ export function FeaturesSection() {
                 </div>
 
                 <div className="text-center mt-8">
-                    <Link href="/dashboard/advanced-features">
-                        <Button size="lg" className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+                    <Button size="lg" className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600" asChild>
+                        <Link href="/dashboard/advanced-features">
                             <Sparkles className="h-5 w-5 mr-2" />
                             Explore All Advanced Features
-                        </Button>
-                    </Link>
+                        </Link>
+                    </Button>
                 </div>
             </div>
         </section>

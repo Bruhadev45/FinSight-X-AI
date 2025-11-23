@@ -37,17 +37,17 @@ export default function Home() {
               <Button variant="ghost" size="sm" onClick={() => scrollToSection("contact")}>
                 Contact
               </Button>
-              <Link href="/dashboard">
-                <Button size="sm">
+              <Button size="sm" asChild>
+                <Link href="/dashboard">
                   Dashboard
-                </Button>
-              </Link>
-            </div>
-            <Link href="/dashboard" className="md:hidden">
-              <Button size="sm">
-                Dashboard
+                </Link>
               </Button>
-            </Link>
+            </div>
+            <Button size="sm" asChild className="md:hidden">
+              <Link href="/dashboard">
+                Dashboard
+              </Link>
+            </Button>
           </div>
         </div>
       </nav>
@@ -72,12 +72,12 @@ export default function Home() {
               and gain actionable insights from their documents.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link href="/dashboard">
-                <Button size="lg" className="w-full sm:w-auto">
+              <Button size="lg" className="w-full sm:w-auto" asChild>
+                <Link href="/dashboard">
                   Start Free Trial
                   <ArrowRight className="ml-2" />
-                </Button>
-              </Link>
+                </Link>
+              </Button>
               <Button
                 size="lg"
                 variant="outline"

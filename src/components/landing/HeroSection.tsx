@@ -21,7 +21,7 @@ export function HeroSection({ scrollToSection }: { scrollToSection: (id: string)
                         Powered by Advanced AI Technology
                     </Badge>
 
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-4 sm:mb-6 leading-tight font-playfair animate-fade-in-up opacity-0 delay-100">
+                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 dark:text-white mb-6 sm:mb-8 leading-tight font-playfair animate-fade-in-up opacity-0 delay-100">
                         AI-Powered
                         <br />
                         <span className="animated-gradient-text">
@@ -29,18 +29,18 @@ export function HeroSection({ scrollToSection }: { scrollToSection: (id: string)
                         </span>
                     </h2>
 
-                    <p className="text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-300 mb-6 sm:mb-8 leading-relaxed animate-fade-in-up opacity-0 delay-200">
+                    <p className="text-lg sm:text-xl lg:text-2xl text-slate-600 dark:text-slate-300 mb-8 sm:mb-10 leading-relaxed animate-fade-in-up opacity-0 delay-200">
                         Enterprise-grade document analysis, fraud detection, and compliance monitoring.
                         Powered by 5 specialized AI agents working 24/7 to protect your financial operations.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-fade-in-up opacity-0 delay-300">
-                        <Link href="/dashboard">
-                            <Button size="lg" className="w-full sm:w-auto">
+                        <Button size="lg" className="w-full sm:w-auto" asChild>
+                            <Link href="/dashboard">
                                 Start Free Trial
                                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-                            </Button>
-                        </Link>
+                            </Link>
+                        </Button>
                         <Button
                             size="lg"
                             variant="outline"
@@ -53,16 +53,16 @@ export function HeroSection({ scrollToSection }: { scrollToSection: (id: string)
 
                     {/* Trust Indicators */}
                     <div className="flex flex-wrap items-center gap-6">
-                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-                            <CheckCircle2 className="h-5 w-5 text-green-600" />
+                        <div className="flex items-center gap-2 text-base text-slate-600 dark:text-slate-400">
+                            <CheckCircle2 className="h-6 w-6 text-green-600" />
                             <span className="font-medium">99.9% Uptime</span>
                         </div>
-                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-                            <CheckCircle2 className="h-5 w-5 text-green-600" />
+                        <div className="flex items-center gap-2 text-base text-slate-600 dark:text-slate-400">
+                            <CheckCircle2 className="h-6 w-6 text-green-600" />
                             <span className="font-medium">SOC 2 Compliant</span>
                         </div>
-                        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-                            <CheckCircle2 className="h-5 w-5 text-green-600" />
+                        <div className="flex items-center gap-2 text-base text-slate-600 dark:text-slate-400">
+                            <CheckCircle2 className="h-6 w-6 text-green-600" />
                             <span className="font-medium">256-bit Encryption</span>
                         </div>
                     </div>
@@ -77,20 +77,20 @@ export function HeroSection({ scrollToSection }: { scrollToSection: (id: string)
                         <CardContent>
                             <div className="grid grid-cols-2 gap-6">
                                 <div className="text-center p-4 bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-indigo-950 dark:to-blue-950 rounded-lg">
-                                    <div className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">98.5%</div>
-                                    <div className="text-sm text-slate-600 dark:text-slate-400">Detection Accuracy</div>
+                                    <div className="text-5xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">98.5%</div>
+                                    <div className="text-base text-slate-600 dark:text-slate-400">Detection Accuracy</div>
                                 </div>
                                 <div className="text-center p-4 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950 dark:to-emerald-950 rounded-lg">
-                                    <div className="text-4xl font-bold text-green-600 dark:text-green-400 mb-2">&lt;30s</div>
-                                    <div className="text-sm text-slate-600 dark:text-slate-400">Time to Insight</div>
+                                    <div className="text-5xl font-bold text-green-600 dark:text-green-400 mb-2">&lt;30s</div>
+                                    <div className="text-base text-slate-600 dark:text-slate-400">Time to Insight</div>
                                 </div>
                                 <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950 rounded-lg">
-                                    <div className="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">1000+</div>
-                                    <div className="text-sm text-slate-600 dark:text-slate-400">Docs/Day</div>
+                                    <div className="text-5xl font-bold text-purple-600 dark:text-purple-400 mb-2">1000+</div>
+                                    <div className="text-base text-slate-600 dark:text-slate-400">Docs/Day</div>
                                 </div>
                                 <div className="text-center p-4 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950 dark:to-orange-950 rounded-lg">
-                                    <div className="text-4xl font-bold text-amber-600 dark:text-amber-400 mb-2">24/7</div>
-                                    <div className="text-sm text-slate-600 dark:text-slate-400">AI Monitoring</div>
+                                    <div className="text-5xl font-bold text-amber-600 dark:text-amber-400 mb-2">24/7</div>
+                                    <div className="text-base text-slate-600 dark:text-slate-400">AI Monitoring</div>
                                 </div>
                             </div>
                         </CardContent>
