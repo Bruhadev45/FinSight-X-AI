@@ -169,9 +169,31 @@ export function OutputDisplay({
 }
 
 function FormattedContent({ content }: { content: string }) {
+  // Clean content: remove LaTeX and JSON objects
+  const cleanContent = (text: string): string => {
+    if (!text) return "";
+
+    // Remove LaTeX delimiters
+    let cleaned = text.replace(/\$\$[\s\S]*?\$\$/g, '[Mathematical Formula]');
+    cleaned = cleaned.replace(/\$[^$]+\$/g, '[Formula]');
+
+    // Remove JSON blocks
+    cleaned = cleaned.replace(/```json[\s\S]*?```/g, '');
+
+    // Remove standalone JSON objects (basic pattern)
+    cleaned = cleaned.replace(/\{\s*"[^"]*"\s*:\s*\{[^}]*\}\s*\}/g, '');
+
+    // Clean up extra whitespace
+    cleaned = cleaned.replace(/\n{3,}/g, '\n\n');
+
+    return cleaned.trim();
+  };
+
+  const processedContent = cleanContent(content);
+
   return (
     <div className="space-y-2 leading-relaxed">
-      {content.split('\n').map((line, i) => {
+      {processedContent.split('\n').map((line, i) => {
         // Empty lines
         if (!line.trim()) return <div key={i} className="h-3" />;
 
