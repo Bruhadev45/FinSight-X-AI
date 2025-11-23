@@ -312,7 +312,7 @@ export default function DashboardPage() {
                         </p>
                       </div>
                     </div>
-                    <Button className="gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+                    <Button className="gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg hover:shadow-xl">
                       Explore Features →
                     </Button>
                   </div>
@@ -340,7 +340,7 @@ export default function DashboardPage() {
                         </p>
                       </div>
                     </div>
-                    <Button className="gap-2 bg-gradient-to-r from-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600">
+                    <Button className="gap-2 bg-gradient-to-r from-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-blue-600 text-white shadow-lg hover:shadow-xl">
                       View Pricing →
                     </Button>
                   </div>
@@ -365,7 +365,7 @@ export default function DashboardPage() {
                         </p>
                       </div>
                     </div>
-                    <Button className="gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
+                    <Button className="gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg hover:shadow-xl">
                       Explore Enterprise →
                     </Button>
                   </div>

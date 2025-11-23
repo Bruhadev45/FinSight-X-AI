@@ -242,7 +242,7 @@ export function FeaturesSection() {
                 </div>
 
                 <div className="text-center mt-8">
-                    <Button size="lg" className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600" asChild>
+                    <Button size="lg" className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white shadow-lg hover:shadow-xl" asChild>
                         <Link href="/dashboard/advanced-features">
                             <Sparkles className="h-5 w-5 mr-2" />
                             Explore All Advanced Features
