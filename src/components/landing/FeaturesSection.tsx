@@ -217,21 +217,21 @@ export function FeaturesSection() {
                                 className="bg-white dark:bg-slate-900 border-2 hover:border-purple-300 dark:hover:border-purple-700 transition-all duration-300 hover:shadow-xl"
                             >
                                 <CardContent className="pt-6">
-                                    <div className="flex items-start gap-4">
+                                    <div className="flex items-center gap-4">
                                         <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
                                             <Icon className="h-6 w-6 text-white" />
                                         </div>
                                         <div className="flex-1">
-                                            <h4 className="text-lg font-semibold mb-2 text-slate-900 dark:text-white">
+                                            <h4 className="text-lg font-semibold mb-1.5 text-slate-900 dark:text-white leading-tight">
                                                 {feature.title}
                                             </h4>
-                                            <p className="text-sm text-slate-600 dark:text-slate-300">
+                                            <p className="text-sm text-slate-600 dark:text-slate-300 leading-snug">
                                                 {feature.description}
                                             </p>
                                         </div>
-                                        <Button variant="ghost" size="sm" asChild>
+                                        <Button variant="ghost" size="icon" className="flex-shrink-0" asChild>
                                             <Link href="/dashboard/advanced-features">
-                                                <ArrowRight className="h-4 w-4" />
+                                                <ArrowRight className="h-5 w-5" />
                                             </Link>
                                         </Button>
                                     </div>

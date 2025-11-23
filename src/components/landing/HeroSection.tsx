@@ -77,20 +77,20 @@ export function HeroSection({ scrollToSection }: { scrollToSection: (id: string)
                         <CardContent>
                             <div className="grid grid-cols-2 gap-6">
                                 <div className="text-center p-4 bg-gradient-to-br from-indigo-50 to-blue-50 dark:from-indigo-950 dark:to-blue-950 rounded-lg">
-                                    <div className="text-5xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">98.5%</div>
-                                    <div className="text-base text-slate-600 dark:text-slate-400">Detection Accuracy</div>
+                                    <div className="text-3xl md:text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-2 leading-tight">98.5%</div>
+                                    <div className="text-sm text-slate-600 dark:text-slate-400 leading-snug">Detection Accuracy</div>
                                 </div>
                                 <div className="text-center p-4 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950 dark:to-emerald-950 rounded-lg">
-                                    <div className="text-5xl font-bold text-green-600 dark:text-green-400 mb-2">&lt;30s</div>
-                                    <div className="text-base text-slate-600 dark:text-slate-400">Time to Insight</div>
+                                    <div className="text-3xl md:text-4xl font-bold text-green-600 dark:text-green-400 mb-2 leading-tight">&lt;30s</div>
+                                    <div className="text-sm text-slate-600 dark:text-slate-400 leading-snug">Time to Insight</div>
                                 </div>
                                 <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950 rounded-lg">
-                                    <div className="text-5xl font-bold text-purple-600 dark:text-purple-400 mb-2">1000+</div>
-                                    <div className="text-base text-slate-600 dark:text-slate-400">Docs/Day</div>
+                                    <div className="text-3xl md:text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2 leading-tight">1000+</div>
+                                    <div className="text-sm text-slate-600 dark:text-slate-400 leading-snug">Docs/Day</div>
                                 </div>
                                 <div className="text-center p-4 bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950 dark:to-orange-950 rounded-lg">
-                                    <div className="text-5xl font-bold text-amber-600 dark:text-amber-400 mb-2">24/7</div>
-                                    <div className="text-base text-slate-600 dark:text-slate-400">AI Monitoring</div>
+                                    <div className="text-3xl md:text-4xl font-bold text-amber-600 dark:text-amber-400 mb-2 leading-tight">24/7</div>
+                                    <div className="text-sm text-slate-600 dark:text-slate-400 leading-snug">AI Monitoring</div>
                                 </div>
                             </div>
                         </CardContent>

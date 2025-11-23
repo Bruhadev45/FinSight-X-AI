@@ -192,10 +192,10 @@ export default function AdvancedFeaturesPage() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <Card className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950 dark:to-emerald-950">
             <CardContent className="p-6">
-              <div className="text-3xl font-bold text-green-700 dark:text-green-400 mb-2">
+              <div className="text-3xl font-bold text-green-700 dark:text-green-400 mb-2 leading-tight">
                 &lt;30s
               </div>
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm text-muted-foreground leading-snug">
                 Time to First Insight
               </div>
             </CardContent>
@@ -203,10 +203,10 @@ export default function AdvancedFeaturesPage() {
 
           <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950">
             <CardContent className="p-6">
-              <div className="text-3xl font-bold text-blue-700 dark:text-blue-400 mb-2">
+              <div className="text-3xl font-bold text-blue-700 dark:text-blue-400 mb-2 leading-tight">
                 1000+
               </div>
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm text-muted-foreground leading-snug">
                 Documents Processed/Day
               </div>
             </CardContent>
@@ -214,10 +214,10 @@ export default function AdvancedFeaturesPage() {
 
           <Card className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950">
             <CardContent className="p-6">
-              <div className="text-3xl font-bold text-purple-700 dark:text-purple-400 mb-2">
+              <div className="text-3xl font-bold text-purple-700 dark:text-purple-400 mb-2 leading-tight">
                 90%+
               </div>
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm text-muted-foreground leading-snug">
                 Insight Accuracy
               </div>
             </CardContent>
@@ -225,10 +225,10 @@ export default function AdvancedFeaturesPage() {
 
           <Card className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950 dark:to-orange-950">
             <CardContent className="p-6">
-              <div className="text-3xl font-bold text-amber-700 dark:text-amber-400 mb-2">
+              <div className="text-3xl font-bold text-amber-700 dark:text-amber-400 mb-2 leading-tight">
                 99%
               </div>
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm text-muted-foreground leading-snug">
                 Cost Effective
               </div>
             </CardContent>

@@ -32,10 +32,10 @@ export function ContactSection() {
                     <Badge className="mb-4 bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300 border-0">
                         GET IN TOUCH
                     </Badge>
-                    <h3 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 font-space-grotesk">
+                    <h3 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 font-space-grotesk leading-tight">
                         Contact Us
                     </h3>
-                    <p className="text-lg text-slate-600 dark:text-slate-300 mb-8">
+                    <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
                         Ready to transform your financial operations with AI? Get in touch with our team
                         to schedule a personalized demo or discuss your specific needs.
                     </p>
@@ -46,8 +46,8 @@ export function ContactSection() {
                                 <Mail className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                             </div>
                             <div>
-                                <h4 className="font-semibold text-slate-900 dark:text-white mb-1">Email</h4>
-                                <p className="text-slate-600 dark:text-slate-300">contact@finsightxai.com</p>
+                                <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-tight">Email</h4>
+                                <p className="text-slate-600 dark:text-slate-300 text-sm leading-snug">contact@finsightxai.com</p>
                             </div>
                         </div>
 
@@ -56,8 +56,8 @@ export function ContactSection() {
                                 <Phone className="h-6 w-6 text-green-600 dark:text-green-400" />
                             </div>
                             <div>
-                                <h4 className="font-semibold text-slate-900 dark:text-white mb-1">Phone</h4>
-                                <p className="text-slate-600 dark:text-slate-300">+1 (555) 123-4567</p>
+                                <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-tight">Phone</h4>
+                                <p className="text-slate-600 dark:text-slate-300 text-sm leading-snug">+1 (555) 123-4567</p>
                             </div>
                         </div>
 
@@ -66,8 +66,8 @@ export function ContactSection() {
                                 <MapPin className="h-6 w-6 text-purple-600 dark:text-purple-400" />
                             </div>
                             <div>
-                                <h4 className="font-semibold text-slate-900 dark:text-white mb-1">Address</h4>
-                                <p className="text-slate-600 dark:text-slate-300">
+                                <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-tight">Address</h4>
+                                <p className="text-slate-600 dark:text-slate-300 text-sm leading-snug">
                                     123 Innovation Drive<br />
                                     San Francisco, CA 94105
                                 </p>

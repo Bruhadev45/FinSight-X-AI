@@ -47,14 +47,14 @@ export function ServicesSection() {
                             <CardTitle className="text-xl">{service.title}</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-slate-600 dark:text-slate-300 mb-6">
+                            <p className="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
                                 {service.description}
                             </p>
                             <ul className="space-y-3">
                                 {service.features.map((feat, idx) => (
                                     <li key={idx} className="flex items-start gap-2">
                                         <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
-                                        <span className="text-sm text-slate-600 dark:text-slate-300">{feat}</span>
+                                        <span className="text-sm text-slate-600 dark:text-slate-300 leading-snug">{feat}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -68,20 +68,20 @@ export function ServicesSection() {
                 <CardContent className="py-12">
                     <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
                         <div>
-                            <div className="text-4xl font-bold mb-2 font-playfair">90%+</div>
-                            <div className="text-blue-100 font-space-grotesk">Cost Savings</div>
+                            <div className="text-3xl md:text-4xl font-bold mb-2 font-playfair leading-tight">90%+</div>
+                            <div className="text-sm text-blue-100 font-space-grotesk leading-snug">Cost Savings</div>
                         </div>
                         <div>
-                            <div className="text-4xl font-bold mb-2 font-playfair">5 AI</div>
-                            <div className="text-blue-100 font-space-grotesk">Specialized Agents</div>
+                            <div className="text-3xl md:text-4xl font-bold mb-2 font-playfair leading-tight">5 AI</div>
+                            <div className="text-sm text-blue-100 font-space-grotesk leading-snug">Specialized Agents</div>
                         </div>
                         <div>
-                            <div className="text-4xl font-bold mb-2 font-playfair">100K+</div>
-                            <div className="text-blue-100 font-space-grotesk">Documents Analyzed</div>
+                            <div className="text-3xl md:text-4xl font-bold mb-2 font-playfair leading-tight">100K+</div>
+                            <div className="text-sm text-blue-100 font-space-grotesk leading-snug">Documents Analyzed</div>
                         </div>
                         <div>
-                            <div className="text-4xl font-bold mb-2 font-playfair">&lt;2s</div>
-                            <div className="text-blue-100 font-space-grotesk">Average Response</div>
+                            <div className="text-3xl md:text-4xl font-bold mb-2 font-playfair leading-tight">&lt;2s</div>
+                            <div className="text-sm text-blue-100 font-space-grotesk leading-snug">Average Response</div>
                         </div>
                     </div>
                 </CardContent>
