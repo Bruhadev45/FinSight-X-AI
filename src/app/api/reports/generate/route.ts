@@ -6,13 +6,9 @@ import { getCurrentUser } from "@/lib/auth";
 
 export async function POST(request: NextRequest) {
   try {
+    // Optional auth - allow demo usage without login
     const user = await getCurrentUser(request);
-    if (!user) {
-      return NextResponse.json(
-        { error: "Unauthorized" },
-        { status: 401 }
-      );
-    }
+    // Continue even if no user for demo purposes
 
     const { reportType, data } = await request.json();
 

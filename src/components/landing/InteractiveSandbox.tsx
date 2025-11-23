@@ -129,7 +129,7 @@ export const InteractiveSandbox = () => {
                                             <input
                                                 ref={fileInputRef}
                                                 type="file"
-                                                accept=".pdf,.xlsx,.csv"
+                                                accept=".pdf,.xlsx,.csv,.txt"
                                                 onChange={handleFileChange}
                                                 className="hidden"
                                             />
@@ -143,7 +143,7 @@ export const InteractiveSandbox = () => {
                                             </div>
                                             <h3 className="text-xl font-semibold mb-2">Upload Financial Document</h3>
                                             <p className="text-sm text-slate-500 mb-4 max-w-xs">
-                                                Drag & drop PDF or click to upload
+                                                Drag & drop PDF, TXT, Excel, or CSV file
                                             </p>
                                             <Button
                                                 variant="outline"
