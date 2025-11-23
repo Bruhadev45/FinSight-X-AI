@@ -6,6 +6,7 @@ import { CommandPalette } from "@/components/CommandPalette";
 import Script from "next/script";
 import { Toaster } from "@/components/ui/sonner";
 import { Inter, Poppins, Playfair_Display, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
+import { Analytics } from "@vercel/analytics/react";
 
 // Font configurations
 const inter = Inter({
@@ -79,6 +80,7 @@ export default function RootLayout({
         {children}
         <Toaster />
         <VisualEditsMessenger />
+        <Analytics />
       </body>
     </html>
   );
