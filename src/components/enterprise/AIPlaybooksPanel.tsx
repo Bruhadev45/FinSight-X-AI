@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Progress } from "@/components/ui/progress";
 import { PlayCircle, CheckCircle, Clock, FileText, Download, Plus, Eye, X, AlertTriangle, TrendingUp, Shield, Activity, Zap, Brain, Target } from "lucide-react";
 import { toast } from "sonner";
+import { OutputDisplay } from "@/components/ui/output-display";
 
 interface Playbook {
   id: string;
@@ -1196,11 +1197,17 @@ ${recommendations.map((r, i) => `${i + 1}. ${r}`).join('\n')}
           )}
 
           <div className="py-4">
-            <div className="bg-slate-50 dark:bg-slate-900 rounded-lg p-6 border">
-              <pre className="whitespace-pre-wrap text-sm font-mono leading-relaxed">
-                {viewingReport?.content}
-              </pre>
-            </div>
+            <OutputDisplay
+              content={viewingReport?.content || ""}
+              type="ai"
+              title="Executive Report"
+              subtitle={`AI-generated analysis with ${viewingReport?.summary.documentsAnalyzed || 0} documents`}
+              badge={`Risk: ${viewingReport?.summary.riskScore || 0}/100`}
+              showCopy={true}
+              showDownload={true}
+              downloadFilename={`${viewingReport?.playbookName.replace(/\s+/g, '_')}_Report_${viewingReport?.timestamp.split('T')[0]}.md`}
+              maxHeight="800px"
+            />
           </div>
 
           <DialogFooter>

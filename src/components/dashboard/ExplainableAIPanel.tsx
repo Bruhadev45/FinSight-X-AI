@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Lightbulb, Link as LinkIcon, CheckCircle, Loader2, Info } from "lucide-react";
 import { toast } from "sonner";
+import { OutputDisplay } from "@/components/ui/output-display";
 
 interface ExplanationResult {
   conclusion: string;
@@ -144,17 +145,14 @@ export const ExplainableAIPanel = () => {
             </div>
 
             {/* Main Explanation */}
-            <Card className="bg-white dark:bg-slate-900">
-              <CardContent className="p-4">
-                <h4 className="font-semibold text-sm mb-2 flex items-center gap-2">
-                  <Info className="h-4 w-4" />
-                  Conclusion
-                </h4>
-                <p className="text-sm text-gray-700 dark:text-gray-300">
-                  {explanation.conclusion}
-                </p>
-              </CardContent>
-            </Card>
+            <OutputDisplay
+              content={explanation.conclusion}
+              type="ai"
+              title="Conclusion"
+              subtitle={`${getConfidencePercentage(explanation.confidence)}% confidence`}
+              badge={`Model: ${explanation.modelVersion}`}
+              showCopy={true}
+            />
 
             {/* Reasoning Chain */}
             <Card className="bg-white dark:bg-slate-900">

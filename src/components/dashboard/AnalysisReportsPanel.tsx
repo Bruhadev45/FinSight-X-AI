@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FileText, Download, Eye, Search, Filter, TrendingUp, AlertTriangle, CheckCircle, Clock, Loader2, FileDown, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
+import { OutputDisplay } from "@/components/ui/output-display";
 
 interface AnalysisReport {
   id: string;
@@ -533,18 +534,17 @@ ${"=".repeat(80)}
               )}
 
               {/* Detailed Analysis */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Detailed Analysis</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="bg-slate-50 dark:bg-slate-900 rounded-lg p-6 border">
-                    <pre className="whitespace-pre-wrap text-sm font-mono">
-                      {viewingReport.content.detailedAnalysis}
-                    </pre>
-                  </div>
-                </CardContent>
-              </Card>
+              <div>
+                <OutputDisplay
+                  content={viewingReport.content.detailedAnalysis}
+                  type="ai"
+                  title="Detailed Analysis"
+                  showCopy={true}
+                  showDownload={true}
+                  downloadFilename={`Analysis_${viewingReport.documentName}_${new Date().toISOString().split('T')[0]}.md`}
+                  maxHeight="800px"
+                />
+              </div>
             </div>
           )}
 

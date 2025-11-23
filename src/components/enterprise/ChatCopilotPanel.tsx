@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { MessageCircle, Send, Bot, User, FileText, TrendingUp, AlertTriangle } from "lucide-react";
 import { toast } from "sonner";
+import { OutputDisplay } from "@/components/ui/output-display";
 
 interface Message {
   id: string;
@@ -156,19 +157,26 @@ export const ChatCopilotPanel = () => {
                       </div>
                     )}
                     <div className={`max-w-[80%] ${message.role === "user" ? "order-first" : ""}`}>
-                      <div
-                        className={`rounded-lg p-3 ${
-                          message.role === "user"
-                            ? "bg-gradient-to-br from-cyan-600 to-blue-600 text-white"
-                            : "bg-gray-100 dark:bg-gray-800"
-                        }`}
-                      >
-                        <p className="text-sm whitespace-pre-line">{message.content}</p>
-                      </div>
-                      {message.context && (
-                        <div className="mt-2 space-y-1">
-                          {message.context.documents && (
-                            <div className="flex flex-wrap gap-1">
+                      {message.role === "user" ? (
+                        <div>
+                          <div className="rounded-lg p-3 bg-gradient-to-br from-cyan-600 to-blue-600 text-white">
+                            <p className="text-sm whitespace-pre-line">{message.content}</p>
+                          </div>
+                          <p className="text-xs text-gray-500 mt-1">
+                            {new Date(message.timestamp).toLocaleTimeString()}
+                          </p>
+                        </div>
+                      ) : (
+                        <div>
+                          <OutputDisplay
+                            content={message.content}
+                            type="ai"
+                            showCopy={true}
+                            className="mb-1"
+                            maxHeight="400px"
+                          />
+                          {message.context && message.context.documents && (
+                            <div className="mt-2 flex flex-wrap gap-1">
                               {message.context.documents.map((doc, i) => (
                                 <Badge key={i} variant="outline" className="text-xs">
                                   <FileText className="h-3 w-3 mr-1" />
@@ -177,11 +185,11 @@ export const ChatCopilotPanel = () => {
                               ))}
                             </div>
                           )}
+                          <p className="text-xs text-gray-500 mt-1">
+                            {new Date(message.timestamp).toLocaleTimeString()}
+                          </p>
                         </div>
                       )}
-                      <p className="text-xs text-gray-500 mt-1">
-                        {new Date(message.timestamp).toLocaleTimeString()}
-                      </p>
                     </div>
                     {message.role === "user" && (
                       <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
